@@ -9,7 +9,7 @@
  */
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
 	
-	   struct ListNode *l3 = (struct ListNode *)malloc(sizeof(struct ListNode));
+	struct ListNode *l3 = (struct ListNode *)malloc(sizeof(struct ListNode));
     struct ListNode *head;
 	int i = 0;
 	int flag = 0; //进位标志
