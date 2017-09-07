@@ -30,20 +30,10 @@ char * longestPalindrome(char* s)
         len = (len1 > len2) ? len1 : len2;
         if(len > end - start)
         {
-            end = i + (len>>2);
-            start = i - ((len - 1)>>2);
+            end = i + len / 2;
+            start = i - (len - 1)/2;
         }
     }
-    s[end+1] == '\0';//turncate the string
-    if(start == 0)
-    {
-        return s;
-    }
-    else
-    {
-        for(;*s != s[start];s++);
-        return s;
-    }
+    s[end+1] = '\0';//turncate the string
+    return s+start ;
 }
-
-
