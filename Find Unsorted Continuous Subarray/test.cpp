@@ -30,3 +30,37 @@ public:
         return start-end==nums.size()?0:end-start+1;
     }
 };
+
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        stack<int> stack ;
+        int left=nums.size();
+        int right=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            while(!stack.empty()&&nums[stack.top()]>nums[i])
+            {
+                left = min(left,stack.top());
+                stack.pop();
+            }
+            stack.push(i);
+        }        
+        while(!stack.empty() )
+            stack.pop();
+        
+        for(int i=nums.size()-1;i>=0;i--)
+        {
+            while(!stack.empty()&&nums[stack.top()]<nums[i])
+           {
+                right =max(right,stack.top());
+                stack.pop();
+            }
+            stack.push(i);
+        }
+        return right-left>0?right-left+1:0;
+    }
+        
+        
+};
