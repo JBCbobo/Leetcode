@@ -30,20 +30,52 @@ char * longestPalindrome(char* s)
         len = (len1 > len2) ? len1 : len2;
         if(len > end - start)
         {
-            end = i + (len>>2);
-            start = i - ((len - 1)>>2);
+            end = i + len / 2;
+            start = i - (len - 1)/2;
         }
     }
-    s[end+1] == '\0';//turncate the string
-    if(start == 0)
-    {
-        return s;
-    }
-    else
-    {
-        for(;*s != s[start];s++);
-        return s;
-    }
+    s[end+1] = '\0';//turncate the string
+    return s+start ;
 }
 
 
+/*---------------------------------------------------------*/
+int expandAroundCenter(char * s,int strsize,int left,int right)
+{
+    int l=left,r=right;
+    while(l>=0 && r<strsize && s[l] == s[r])
+            {
+                    l--;
+                    r++;
+                }
+        return r-l-1;
+}
+
+
+char * longestPalindrome(char* s)
+{
+    int start = 0,end = 0;
+    int i = 0;
+    int size = 0;
+    int len1;
+    int len2;
+    int len;
+    char *res;
+    for(size = 0 ; s[size]; size++);
+    res = (char * )malloc(sizeof(char)*(size+1)); //+1 for the '\0'
+    for(i = 0; i < size; i++)
+    {
+        res[i] = s[i];
+        len1 = expandAroundCenter(s,size,i,i);
+        len2 = expandAroundCenter(s,size,i,i+1);
+        len = (len1 > len2) ? len1 : len2;
+        if(len > end - start)
+        {
+            end = i + (len>>1);
+            start = i - ((len - 1)>>1);
+        }
+    }
+    //substring of the string
+    res[end+1] = '\0';
+    return res+start;
+}
